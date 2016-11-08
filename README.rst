@@ -23,8 +23,8 @@ For prototyping, the P1 header pins should be connected as follows:
 ========== ====== ============ ======== ============== ========
 Board Pin  Name   Remarks      RPi Pin  RPi Function   Colour
 ---------- ------ ------------ -------- -------------- --------
-1          GND    Ground       P01-6    GND            Black
-2          VCC    +3.3V Power  P01-1    3V3            White
+1          VIN    +3.3V Power  P01-1    3V3            White
+2          GND    Ground       P01-6    GND            Black
 3          SCL    Clock        P01-5    GPIO 3 (SCL)   Purple
 4          SDA    Data         P01-3    GPIO 2 (SDA)   Grey
 ========== ====== ============ ======== ============== ========
