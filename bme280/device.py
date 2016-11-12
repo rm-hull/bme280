@@ -38,7 +38,7 @@ def load_calibration_params(bus, address):
     formula to perform temperature readout in degC, humidity in % and pressure
     in hPA.
     """
-    read = bme280.reader(bus, address)
+    read = reader.reader(bus, address)
 
     # Temperature trimming params
     compensation.dig_T1 = read.unsigned_short(0x88)
