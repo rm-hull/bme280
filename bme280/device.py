@@ -58,7 +58,7 @@ def load_calibration_params(bus, address):
 
     # Humidity trimming params
     compensation.dig_H1 = read.unsigned_byte(0xA1)
-    compensation.dig_H2 = read.signed_word(0xE1)
+    compensation.dig_H2 = read.signed_short(0xE1)
     compensation.dig_H3 = read.signed_byte(0xE3)
 
     e4 = read.signed_byte(0xE4)
