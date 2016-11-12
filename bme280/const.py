@@ -1,5 +1,8 @@
 class _const:
 
+    # Attribution:
+    # Python Cookbook, By Alex Martelli, Anna Ravenscroft, David Ascher
+
     class ConstError(TypeError):
         pass
 
