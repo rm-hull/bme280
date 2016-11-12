@@ -73,13 +73,11 @@ Then add your user to the i2c group::
 
 Install some packages (python2)::
 
-  $ sudo apt-get install i2c-tools python-smbus python-pip libfreetype6-dev
-  $ sudo pip install pillow
+  $ sudo apt-get install i2c-tools python-smbus
 
 or (python3)::
 
-  $ sudo apt-get install i2c-tools python3-smbus python3-pip libfreetype6-dev
-  $ sudo pip3 install pillow
+  $ sudo apt-get install i2c-tools python3-smbus
 
 Next check that the device is communicating properly (if using a rev.1 board,
 use 0 for the bus not 1)::
@@ -93,12 +91,7 @@ use 0 for the bus not 1)::
     40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-    70: -- -- -- -- -- -- UU 77
-
-According to the manual, "UU" means that probing was skipped,
-because the address was in use by a driver. It suggest that
-there is a chip at that address. Indeed the documentation for
-the device indicates it uses two addresses.
+    70: -- -- -- -- -- -- 76 --
 
 Installing the Python Package
 -----------------------------
