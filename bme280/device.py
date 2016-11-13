@@ -47,7 +47,7 @@ class uncompensated_readings(object):
         self.humidity = block[6] << 8 | block[7]
 
 
-class compensated(object):
+class compensated_readings(object):
     """
     Compensation formulas translated from Appendix A (8.1) of BME280 datasheet:
 
@@ -163,7 +163,7 @@ def sample(bus, address):
 
     block = bus.read_i2c_block_data(address, 0xF7, 8)
     raw_data = uncompensated_readings(block)
-    return compensated(raw_data, compensation_params)
+    return compensated_readings(raw_data, compensation_params)
 
 
 # Setup to flash a LED on GPIO-14 (TXD)
