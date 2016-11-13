@@ -101,6 +101,9 @@ class compensated_readings(object):
         res = res + (v1 + v2 + self.__comp.dig_P7) / 16.0
         return res
 
+    def __repr__(self):
+        return "compensated_reading(timestamp={0}, temp={1:0.3f} deg C, pressure={2:0.2f} hPa, humidity={3:0.2f} % rH)".format(
+            self.timestamp, self.temperature, self.pressure / 100, self.humidity)
 
 def load_calibration_params(bus, address):
     """
