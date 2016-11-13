@@ -17,7 +17,6 @@ setup(
     url = "https://github.com/rm-hull/bme280",
     download_url = "https://github.com/rm-hull/bme280/tarball/0.1.0",
     packages = ['bme280'],
-    install_requires = ["smbus","pillow"],
     classifiers = [
         "License :: OSI Approved :: MIT License",
         "Development Status :: 4 - Beta",
