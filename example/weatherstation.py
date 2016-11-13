@@ -27,16 +27,28 @@ import RPi.GPIO as GPIO
 import smbus
 import time
 
+import bme280
 from oled.device import ssd1306
 from oled.render import canvas
 
-import bme280
+
+def toggle_display(_):
+    global visible
+    if visible:
+        oled_device.hide()
+        visible = False
+    else:
+        oled_device.show()
+        visible = True
 
 # Setup to flash a LED on GPIO-14 (TXD)
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(14, GPIO.OUT)
+GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(15, GPIO.RISING, callback=toggle_display, bouncetime=200)
 
+visible = True
 port = 1
 address = 0x76
 bus = smbus.SMBus(port)
