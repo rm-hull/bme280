@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 Richard Hull
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import RPi.GPIO as GPIO
+import smbus
+import time
+
+from oled.device import ssd1306
+from oled.render import canvas
+
+import bme280
+
+# Setup to flash a LED on GPIO-14 (TXD)
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(14, GPIO.OUT)
+
+port = 1
+address = 0x76
+bus = smbus.SMBus(port)
+
+oled_device = ssd1306(bus)
+
+bme280.load_calibration_params(bus, address)
+fmt = '{0:5d}:  {1}  {2:0.3f} deg C,  {3:0.2f} hPa,  {4:0.2f} %'
+counter = 1
+while True:
+    GPIO.output(14, True)
+    data = bme280.sample(bus, address)
+    print fmt.format(counter, data.timestamp, data.temperature, data.pressure / 100, data.humidity)
+    with canvas(oled_device) as draw:
+        draw.text((0, 0), text=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"), fill=255)
+        draw.line((0, 12, 128, 12), fill=255)
+        draw.text((0, 14), text='{0:0.3f} deg C'.format(data.temperature), fill=255)
+        draw.text((0, 24), text='{0:0.2f} hPa'.format(data.pressure / 100), fill=255)
+        draw.text((0, 34), text='{0:0.2f} % rH'.format(data.humidity), fill=255)
+
+    GPIO.output(14, False)
+    time.sleep(5)
+    counter += 1
