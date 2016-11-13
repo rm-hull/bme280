@@ -62,6 +62,7 @@ class compensated_readings(object):
     """
     def __init__(self, raw_readings, compensation_params):
         self.__comp = compensation_params
+        self.timestamp = datetime.datetime.now()
         self.temperature = self.__tfine(raw_readings.temperature) / 5120.0
         self.humidity = self.__calc_humidity(raw_readings.humidity,
                                              raw_readings.temperature)
