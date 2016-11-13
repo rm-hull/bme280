@@ -5,7 +5,7 @@ Interfacing a Bosch BME280 digital sensor module (capable of sensing
 temperature, humidity and pressure) in Python 2 or 3 using I2C on the Raspberry
 Pi. The particular kit I bought can be acquired for a few pounds from `eBay
 <http://www.ebay.co.uk/itm/311728184519>`_. Further technical details for the
-SSD1306 OLED display can be found in the `datasheet
+BME280 sensor can be found in the `datasheet
 <https://raw.githubusercontent.com/rm-hull/bme280/master/doc/tech-spec/BME280.pdf>`_
 [PDF].
 
