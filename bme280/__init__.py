@@ -32,9 +32,9 @@ __version__ = "0.1.0"
 import datetime
 import time
 
-import reader
-import const as compensation_params
-import const as oversampling
+from bme280.reader import reader
+import bme280.const as compensation_params
+import bme280.const as oversampling
 
 # Oversampling modes
 oversampling.x1 = 1
@@ -121,7 +121,7 @@ def load_calibration_params(bus, address):
     formula to perform temperature readout in degC, humidity in % and pressure
     in hPA.
     """
-    read = reader.reader(bus, address)
+    read = reader(bus, address)
 
     # Temperature trimming params
     compensation_params.dig_T1 = read.unsigned_short(0x88)
