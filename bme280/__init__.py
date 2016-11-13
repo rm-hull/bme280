@@ -59,8 +59,8 @@ class compensated_readings(object):
        * Temperature in DegC, double precision. Output value of "51.23"
          equals 51.23 DegC
 
-       * Pressure in Pa as double. Output value of "96386.2" equals
-         96386.2 Pa = 963.862 hPa
+       * Pressure in hPa as double. Output value of "963.862" equals
+         963.862 hPa
 
        * Humidity in %rH as as double. Output value of "46.332" represents
          46.332 %rH
@@ -72,7 +72,7 @@ class compensated_readings(object):
         self.humidity = self.__calc_humidity(raw_readings.humidity,
                                              raw_readings.temperature)
         self.pressure = self.__calc_pressure(raw_readings.pressure,
-                                             raw_readings.temperature)
+                                             raw_readings.temperature) / 100.0
 
     def __tfine(self, t):
         v1 = (t / 16384.0 - self.__comp.dig_T1 / 1024.0) * self.__comp.dig_T2
@@ -108,7 +108,7 @@ class compensated_readings(object):
 
     def __repr__(self):
         return "compensated_reading(timestamp={0}, temp={1:0.3f} deg C, pressure={2:0.2f} hPa, humidity={3:0.2f} % rH)".format(
-            self.timestamp, self.temperature, self.pressure / 100, self.humidity)
+            self.timestamp, self.temperature, self.pressure, self.humidity)
 
 
 def load_calibration_params(bus, address):

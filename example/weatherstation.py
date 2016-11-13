@@ -61,12 +61,12 @@ counter = 1
 while True:
     GPIO.output(14, True)
     data = bme280.sample(bus, address)
-    print fmt.format(counter, data.timestamp, data.temperature, data.pressure / 100, data.humidity)
+    print(fmt.format(counter, data.timestamp, data.temperature, data.pressure, data.humidity))
     with canvas(oled_device) as draw:
         draw.text((0, 0), text=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"), fill=255)
         draw.line((0, 12, 128, 12), fill=255)
         draw.text((0, 14), text='{0:0.3f} deg C'.format(data.temperature), fill=255)
-        draw.text((0, 24), text='{0:0.2f} hPa'.format(data.pressure / 100), fill=255)
+        draw.text((0, 24), text='{0:0.2f} hPa'.format(data.pressure), fill=255)
         draw.text((0, 34), text='{0:0.2f} % rH'.format(data.humidity), fill=255)
 
     GPIO.output(14, False)
