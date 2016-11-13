@@ -160,13 +160,13 @@ def __calc_delay(t_oversampling, h_oversampling, p_oversampling):
     return t_delay + h_delay + p_delay
 
 
-def sample(bus, address, sampling=None):
+def sample(bus, address, sampling=oversampling.x1):
     """
-    Primes the sensor for reading (x1 oversampling), pauses for a set amount
-    of time so that the reading stabilizes, and then returns a compensated
-    reading object with the following attributes:
+    Primes the sensor for reading (defaut: x1 oversampling), pauses for a set
+    amount of time so that the reading stabilizes, and then returns a
+    compensated reading object with the following attributes:
         * timestamp (Python's datetime object) when reading was taken.
-        * temperature, in degrees celcius.
+        * temperature, in degrees Celcius.
         * humidity, in % relative humidity.
         * pressure, in hPa.
     """
