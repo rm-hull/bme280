@@ -1,0 +1,13 @@
+include README.rst LICENSE.md tox.ini
+
+recursive-include bme280 *.py
+
+recursive-include examples *
+
+recursive-include doc *
+prune docs/_build
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * *~
+recursive-exclude * .coverage
