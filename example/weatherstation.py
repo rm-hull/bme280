@@ -41,6 +41,7 @@ def toggle_display(_):
         oled_device.show()
         visible = True
 
+
 # Setup to flash a LED on GPIO-14 (TXD)
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)

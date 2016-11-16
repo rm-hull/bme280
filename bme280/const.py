@@ -45,6 +45,7 @@ class _const:
     def __str__(self):
         return str(self.__dict__)
 
+
 import sys
 
 sys.modules[__name__] = _const()
