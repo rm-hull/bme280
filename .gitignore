@@ -27,6 +27,7 @@ var/
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
+MANIFEST
 *.manifest
 *.spec
 
@@ -61,7 +62,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+doc/_build/
 
 # PyBuilder
 target/
@@ -87,3 +88,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+*~
+
+# OSX
+.DS_Store
