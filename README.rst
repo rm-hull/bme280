@@ -76,13 +76,9 @@ Then add your user to the i2c group::
 
   $ sudo adduser pi i2c
 
-Install some packages (python2)::
+Install some packages::
 
-  $ sudo apt-get install i2c-tools python-smbus
-
-or (python3)::
-
-  $ sudo apt-get install i2c-tools python3-smbus
+  $ sudo apt-get install i2c-tools python-pip
 
 Next check that the device is communicating properly (if using a rev.1 board,
 use 0 for the bus not 1)::
@@ -112,10 +108,57 @@ Alternatively for python3, type::
 
  $ sudo python3 setup.py install
 
+Cheeseshop install
+^^^^^^^^^^^^^^^^^^
+Alternatively, a version on PyPi is available, just do::
+
+  $ sudo pip install RPi.bme280
+
 Software Driver - Example Usage
 -------------------------------
 
-TODO
+Once installed, confirm the I2C address (see prerequisites, it will most 
+likely be 0x76 or 0x77) and port.
+
+Then in a python script or REPL:
+
+.. code:: python
+
+  import smbus2
+  import bme280
+
+  port = 1
+  address = 0x76
+  bus = smbus2.SMBus(port)
+
+  bme280.load_calibration_params(bus, address)
+
+  # the sample method will take a single reading and return a
+  # compensated_reading object
+  data = bme280.sample(bus, address)
+
+  # the compensated_reading class has the following attributes
+  print(data.timestamp)
+  print(data.temperature)
+  print(data.pressure)
+  print(data.humidity)
+
+  # there is a handy string representation too
+  print(data)
+
+This then should print something like::
+
+  2016-11-18 17:33:28.937863
+  20.563
+  980.91
+  48.41
+  compensated_reading(timestamp=2016-11-18 17:33:28.937863, temp=20.563 deg C, pressure=980.91 hPa, humidity=48.41 % rH)
+
+For a data-logger like application, periodically call ``bme2.sample(bus, address)`` to
+get time-based readings.
+
+See the `weatherstation project <https://github.com/rm-hull/weatherstation>`_ for
+a more complete example usage.
 
 References
 ----------
