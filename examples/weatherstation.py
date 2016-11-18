@@ -24,7 +24,7 @@
 # SOFTWARE.
 
 import RPi.GPIO as GPIO
-import smbus
+import smbus2
 import time
 
 import bme280
@@ -52,7 +52,7 @@ GPIO.add_event_detect(15, GPIO.RISING, callback=toggle_display, bouncetime=200)
 visible = True
 port = 1
 address = 0x76
-bus = smbus.SMBus(port)
+bus = smbus2.SMBus(port)
 
 oled_device = ssd1306(bus)
 
