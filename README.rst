@@ -14,6 +14,8 @@ BME280 sensor can be found in the `datasheet
 <https://raw.githubusercontent.com/rm-hull/bme280/master/doc/tech-spec/BME280.pdf>`_
 [PDF].
 
+.. image:: https://raw.githubusercontent.com/rm-hull/bme280/master/doc/bme280-sensor.jpg
+   :alt: mounted
 
 GPIO pin-outs
 -------------
