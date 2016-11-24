@@ -1,4 +1,5 @@
-# MIT License
+MIT License
+===========
 
 Copyright (c) 2016 Richard Hull
 
