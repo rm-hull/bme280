@@ -140,6 +140,7 @@ Then in a python script or REPL:
   data = bme280.sample(bus, address)
 
   # the compensated_reading class has the following attributes
+  print(data.id)
   print(data.timestamp)
   print(data.temperature)
   print(data.pressure)
@@ -150,11 +151,14 @@ Then in a python script or REPL:
 
 This then should print something like::
 
+  ee50df9c-3aa3-4772-8767-73b6bb74f30f
   2016-11-18 17:33:28.937863
   20.563
   980.91
   48.41
-  compensated_reading(timestamp=2016-11-18 17:33:28.937863, temp=20.563 deg C, pressure=980.91 hPa, humidity=48.41 % rH)
+  compensated_reading(id=ee50df9c-3aa3-4772-8767-73b6bb74f30f, 
+      timestamp=2016-11-18 17:33:28.937863, temp=20.563 deg C, 
+      pressure=980.91 hPa, humidity=48.41 % rH)
 
 For a data-logger like application, periodically call ``bme2.sample(bus, address)`` to
 get time-based readings.

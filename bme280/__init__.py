@@ -31,6 +31,7 @@ __version__ = "0.1.0"
 
 import datetime
 import time
+import uuid
 
 from bme280.reader import reader
 import bme280.const as compensation_params
@@ -66,7 +67,8 @@ class compensated_readings(object):
          46.332 %rH
     """
     def __init__(self, raw_readings, compensation_params):
-        self.__comp = compensation_params
+        self._comp = compensation_params
+        self.id = uuid.uuid4()
         self.timestamp = datetime.datetime.now()
         self.temperature = self.__tfine(raw_readings.temperature) / 5120.0
         self.humidity = self.__calc_humidity(raw_readings.humidity,
@@ -75,25 +77,25 @@ class compensated_readings(object):
                                              raw_readings.temperature) / 100.0
 
     def __tfine(self, t):
-        v1 = (t / 16384.0 - self.__comp.dig_T1 / 1024.0) * self.__comp.dig_T2
-        v2 = ((t / 131072.0 - self.__comp.dig_T1 / 8192.0) ** 2) * self.__comp.dig_T3
+        v1 = (t / 16384.0 - self._comp.dig_T1 / 1024.0) * self._comp.dig_T2
+        v2 = ((t / 131072.0 - self._comp.dig_T1 / 8192.0) ** 2) * self._comp.dig_T3
         return v1 + v2
 
     def __calc_humidity(self, h, t):
         res = self.__tfine(t) - 76800.0
-        res = (h - (self.__comp.dig_H4 * 64.0 + self.__comp.dig_H5 / 16384.0 * res)) * \
-            (self.__comp.dig_H2 / 65536.0 * (1.0 + self.__comp.dig_H6 / 67108864.0 * res *
-                                             (1.0 + self.__comp.dig_H3 / 67108864.0 * res)))
-        res = res * (1.0 - (self.__comp.dig_H1 * res / 524288.0))
+        res = (h - (self._comp.dig_H4 * 64.0 + self._comp.dig_H5 / 16384.0 * res)) * \
+            (self._comp.dig_H2 / 65536.0 * (1.0 + self._comp.dig_H6 / 67108864.0 * res *
+                                            (1.0 + self._comp.dig_H3 / 67108864.0 * res)))
+        res = res * (1.0 - (self._comp.dig_H1 * res / 524288.0))
         return max(0.0, min(res, 100.0))
 
     def __calc_pressure(self, p, t):
         v1 = self.__tfine(t) / 2.0 - 64000.0
-        v2 = v1 * v1 * self.__comp.dig_P6 / 32768.0
-        v2 = v2 + v1 * self.__comp.dig_P5 * 2.0
-        v2 = v2 / 4.0 + self.__comp.dig_P4 * 65536.0
-        v1 = (self.__comp.dig_P3 * v1 * v1 / 524288.0 + self.__comp.dig_P2 * v1) / 524288.0
-        v1 = (1.0 + v1 / 32768.0) * self.__comp.dig_P1
+        v2 = v1 * v1 * self._comp.dig_P6 / 32768.0
+        v2 = v2 + v1 * self._comp.dig_P5 * 2.0
+        v2 = v2 / 4.0 + self._comp.dig_P4 * 65536.0
+        v1 = (self._comp.dig_P3 * v1 * v1 / 524288.0 + self._comp.dig_P2 * v1) / 524288.0
+        v1 = (1.0 + v1 / 32768.0) * self._comp.dig_P1
 
         # Prevent divide by zero
         if v1 == 0:
@@ -101,14 +103,14 @@ class compensated_readings(object):
 
         res = 1048576.0 - p
         res = ((res - v2 / 4096.0) * 6250.0) / v1
-        v1 = self.__comp.dig_P9 * res * res / 2147483648.0
-        v2 = res * self.__comp.dig_P8 / 32768.0
-        res = res + (v1 + v2 + self.__comp.dig_P7) / 16.0
+        v1 = self._comp.dig_P9 * res * res / 2147483648.0
+        v2 = res * self._comp.dig_P8 / 32768.0
+        res = res + (v1 + v2 + self._comp.dig_P7) / 16.0
         return res
 
     def __repr__(self):
-        return "compensated_reading(timestamp={0}, temp={1:0.3f} deg C, pressure={2:0.2f} hPa, humidity={3:0.2f} % rH)".format(
-            self.timestamp, self.temperature, self.pressure, self.humidity)
+        return "compensated_reading(id={0}, timestamp={1}, temp={2:0.3f} deg C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
+            self.id, self.timestamp, self.temperature, self.pressure, self.humidity)
 
 
 def load_calibration_params(bus, address):

@@ -16,6 +16,7 @@ bme280.load_calibration_params(bus, address)
 data = bme280.sample(bus, address)
 
 # the compensated_reading class has the following attributes
+print(data.id)
 print(data.timestamp)
 print(data.temperature)
 print(data.pressure)
