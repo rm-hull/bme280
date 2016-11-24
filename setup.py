@@ -15,7 +15,7 @@ setup(
     description="A library to drive a Bosch BME280 tempperature, humidity, pressure sensor over I2C",
     long_description=README,
     license="MIT",
-    keywords=["raspberry pi", "rpi", "bosch", "BME280", "i2c", "temperature", "humidity", "pressure"],
+    keywords=["raspberry pi", "orange pi", "banana pi", "rpi", "bosch", "BME280", "i2c", "temperature", "humidity", "pressure"],
     url="https://github.com/rm-hull/bme280",
     download_url="https://github.com/rm-hull/bme280/tarball/" + bme280.__version__,
     packages=['bme280'],
