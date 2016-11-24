@@ -157,7 +157,7 @@ This then should print something like::
   980.91
   48.41
   compensated_reading(id=ee50df9c-3aa3-4772-8767-73b6bb74f30f, 
-      timestamp=2016-11-18 17:33:28.937863, temp=20.563 deg C, 
+      timestamp=2016-11-18 17:33:28.937863, temp=20.563 °C, 
       pressure=980.91 hPa, humidity=48.41 % rH)
 
 For a data-logger like application, periodically call ``bme2.sample(bus, address)`` to

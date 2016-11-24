@@ -27,7 +27,7 @@
 Raspberry Pi BME280 Driver.
 """
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 import datetime
 import time
@@ -59,8 +59,8 @@ class compensated_readings(object):
     """
     Compensation formulas translated from Appendix A (8.1) of BME280 datasheet:
 
-       * Temperature in DegC, double precision. Output value of "51.23"
-         equals 51.23 DegC
+       * Temperature in °C, double precision. Output value of "51.23"
+         equals 51.23 °C
 
        * Pressure in hPa as double. Output value of "963.862" equals
          963.862 hPa
@@ -111,7 +111,7 @@ class compensated_readings(object):
         return res
 
     def __repr__(self):
-        return "compensated_reading(id={0}, timestamp={1}, temp={2:0.3f} deg C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
+        return "compensated_reading(id={0}, timestamp={1}, temp={2:0.3f} °C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
             self.id, self.timestamp, self.temperature, self.pressure, self.humidity)
 
 
