@@ -51,17 +51,16 @@ GPIO.add_event_detect(15, GPIO.RISING, callback=toggle_display, bouncetime=200)
 
 visible = True
 port = 1
-address = 0x76
 bus = smbus2.SMBus(port)
 
 oled_device = ssd1306(bus)
 
-bme280.load_calibration_params(bus, address)
+bme280.load_calibration_params(bus)
 fmt = '{0:5d}:  {1}  {2:0.3f} deg C,  {3:0.2f} hPa,  {4:0.2f} %'
 counter = 1
 while True:
     GPIO.output(14, True)
-    data = bme280.sample(bus, address)
+    data = bme280.sample(bus)  # Use default address (0x76)
     print(fmt.format(counter, data.timestamp, data.temperature, data.pressure, data.humidity))
     with canvas(oled_device) as draw:
         draw.text((0, 0), text=data.timestamp.strftime("%Y-%m-%d %H:%M:%S"), fill=255)

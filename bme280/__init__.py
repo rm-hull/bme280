@@ -44,6 +44,8 @@ oversampling.x4 = 3
 oversampling.x8 = 4
 oversampling.x16 = 5
 
+DEFAULT_PORT = 0x76
+
 
 class uncompensated_readings(object):
 
@@ -113,7 +115,7 @@ class compensated_readings(object):
             self.id, self.timestamp, self.temperature, self.pressure, self.humidity)
 
 
-def load_calibration_params(bus, address):
+def load_calibration_params(bus, address=DEFAULT_PORT):
     """
     The BME280 output consists of the ADC output values. However, each sensing
     element behaves differently. Therefore, the actual pressure and temperature
@@ -162,7 +164,7 @@ def __calc_delay(t_oversampling, h_oversampling, p_oversampling):
     return t_delay + h_delay + p_delay
 
 
-def sample(bus, address, sampling=oversampling.x1):
+def sample(bus, address=DEFAULT_PORT, sampling=oversampling.x1):
     """
     Primes the sensor for reading (defaut: x1 oversampling), pauses for a set
     amount of time so that the reading stabilizes, and then returns a
