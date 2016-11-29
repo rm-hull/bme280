@@ -19,27 +19,23 @@ BME280 sensor can be found in the `datasheet
 
 GPIO pin-outs
 -------------
-
 The SSD1306 device is an I2C device, so connecting to the RPi is very straightforward:
 
 P1 Header
 ^^^^^^^^^
-
 For prototyping, the P1 header pins should be connected as follows:
 
-========== ====== ============ ======== ============== ========
-Board Pin  Name   Remarks      RPi Pin  RPi Function   Colour
----------- ------ ------------ -------- -------------- --------
-1          VIN    +3.3V Power  P01-1    3V3            White
-2          GND    Ground       P01-6    GND            Black
-3          SCL    Clock        P01-5    GPIO 3 (SCL)   Purple
-4          SDA    Data         P01-3    GPIO 2 (SDA)   Grey
-========== ====== ============ ======== ============== ========
+========== ====== ============ ======== ==============
+Board Pin  Name   Remarks      RPi Pin  RPi Function  
+========== ====== ============ ======== ==============
+1          VIN    +3.3V Power  P01-1    3V3           
+2          GND    Ground       P01-6    GND           
+3          SCL    Clock        P01-5    GPIO 3 (SCL)  
+4          SDA    Data         P01-3    GPIO 2 (SDA)  
+========== ====== ============ ======== ==============
 
 Pre-requisites
 --------------
-
-This was tested with Raspian on a rev.2 model B, with a vanilla kernel version 4.1.16+.
 Ensure that the I2C kernel driver is enabled::
 
   $ dmesg | grep i2c
@@ -98,7 +94,6 @@ use 0 for the bus not 1)::
 
 Installing the Python Package
 -----------------------------
-
 For python2, from the bash prompt, enter::
 
   $ sudo python setup.py install
@@ -118,7 +113,6 @@ Alternatively, a version on PyPi is available, just do::
 
 Software Driver - Example Usage
 -------------------------------
-
 Once installed, confirm the I2C address (see prerequisites, it will most 
 likely be 0x76 or 0x77) and port.
 
@@ -168,12 +162,10 @@ a more complete example usage.
 
 References
 ----------
-
-TODO
+> TODO
 
 License
 -------
-
 The MIT License (MIT)
 
 Copyright (c) 2016 Richard Hull
