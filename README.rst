@@ -21,7 +21,7 @@ BME280 sensor can be found in the `datasheet
 
 GPIO pin-outs
 -------------
-The SSD1306 device is an I2C device, so connecting to the RPi is very straightforward:
+The BME280 is an I2C device, so connecting to the RPi is very straightforward:
 
 P1 Header
 ^^^^^^^^^
