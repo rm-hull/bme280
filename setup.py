@@ -12,7 +12,7 @@ setup(
     version=bme280.__version__,
     author="Richard Hull",
     author_email="richard.hull@destructuring-bind.org",
-    description="A library to drive a Bosch BME280 tempperature, humidity, pressure sensor over I2C",
+    description="A library to drive a Bosch BME280 temperature, humidity, pressure sensor over I2C",
     long_description=README,
     license="MIT",
     keywords=["raspberry pi", "orange pi", "banana pi", "rpi", "bosch", "BME280", "i2c", "temperature", "humidity", "pressure"],
