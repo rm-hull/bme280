@@ -160,7 +160,7 @@ def load_calibration_params(bus, address=DEFAULT_PORT):
     e6 = read.signed_byte(0xE6)
 
     compensation_params.dig_H4 = e4 << 4 | e5 & 0x0F
-    compensation_params.dig_H5 = (e5 & 0xF0) << 12 | e6
+    compensation_params.dig_H5 = ((e5 >> 4) & 0xF0) | (e6 << 4)
     compensation_params.dig_H6 = read.signed_byte(0xE7)
 
 
