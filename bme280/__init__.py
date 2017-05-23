@@ -50,9 +50,15 @@ DEFAULT_PORT = 0x76
 class uncompensated_readings(object):
 
     def __init__(self, block):
+        self._block = block
         self.pressure = (block[0] << 16 | block[1] << 8 | block[2]) >> 4
         self.temperature = (block[3] << 16 | block[4] << 8 | block[5]) >> 4
         self.humidity = block[6] << 8 | block[7]
+
+    def __repr__(self):
+        return "uncompensated_reading(temp=0x{0:08X}, pressure=0x{1:08X}, humidity=0x{2:08X}, block={3})".format(
+            self.temperature, self.pressure, self.humidity,
+            ":".join("{0:02X}".format(c) for c in self._block))
 
 
 class compensated_readings(object):
@@ -71,6 +77,7 @@ class compensated_readings(object):
     def __init__(self, raw_readings, compensation_params):
         self._comp = compensation_params
         self.id = uuid.uuid4()
+        self.uncompensated = raw_readings
         self.timestamp = datetime.datetime.now()
         self.temperature = self.__tfine(raw_readings.temperature) / 5120.0
         self.humidity = self.__calc_humidity(raw_readings.humidity,
