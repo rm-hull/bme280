@@ -1,6 +1,12 @@
 BME280 ChangeLog
 ================
 
+0.1.3
+-----
+* [Bug fix] Correct H5 compensation param
+* Add uncompensated_readings ``__repr__``
+
+
 0.1.2
 -----
 * Use unicode degree symbol (°C) in ``__repr__`` & docstrings
