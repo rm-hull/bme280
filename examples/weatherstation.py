@@ -28,8 +28,9 @@ import smbus2
 import time
 
 import bme280
-from oled.device import ssd1306
-from oled.render import canvas
+from luma.core.interface.serial import i2c
+from luma.core.render import canvas
+from luma.oled.device import ssd1306
 
 
 def toggle_display(_):
@@ -53,7 +54,8 @@ visible = True
 port = 1
 bus = smbus2.SMBus(port)
 
-oled_device = ssd1306(bus)
+serial = i2c(bus, address=0x3C)
+oled_device = ssd1306(serial)
 
 bme280.load_calibration_params(bus)
 fmt = '{0:5d}:  {1}  {2:0.3f} deg C,  {3:0.2f} hPa,  {4:0.2f} %'
