@@ -127,6 +127,17 @@ class params(dict):
     __delattr__ = dict.__delitem__
 
 
+class memoize:
+    def __init__(self, f):
+        self.f = f
+        self.memo = {}
+
+    def __call__(self, *args):
+        if args not in self.memo:
+            self.memo[args] = self.f(*args)
+        return self.memo[args]
+
+
 def load_calibration_params(bus, address=DEFAULT_PORT):
     """
     The BME280 output consists of the ADC output values. However, each sensing
@@ -172,6 +183,9 @@ def load_calibration_params(bus, address=DEFAULT_PORT):
     return compensation_params
 
 
+__cache_calibration_params = memoize(load_calibration_params)
+
+
 def __calc_delay(t_oversampling, h_oversampling, p_oversampling):
     t_delay = 0.000575 + 0.0023 * (1 << t_oversampling)
     h_delay = 0.000575 + 0.0023 * (1 << h_oversampling)
@@ -190,7 +204,7 @@ def sample(bus, address=DEFAULT_PORT, compensation_params=None, sampling=oversam
         * pressure, in hPa.
     """
     if compensation_params is None:
-        compensation_params = load_calibration_params(bus, address)
+        compensation_params = __cache_calibration_params(bus, address)
 
     mode = 1  # forced
     t_oversampling = sampling or oversampling.x1
