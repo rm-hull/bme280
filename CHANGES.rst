@@ -1,6 +1,11 @@
 BME280 ChangeLog
 ================
 
+0.2.0
+-----
+* Add regression tests
+* Support multiple devices (fixes issue #7)
+
 0.1.3
 -----
 * [Bug fix] Correct H5 compensation param
