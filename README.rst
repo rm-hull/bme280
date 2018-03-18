@@ -2,11 +2,18 @@ BME280 Sensor Driver
 ====================
 .. image:: https://travis-ci.org/rm-hull/bme280.svg?branch=master
    :target: https://travis-ci.org/rm-hull/bme280
-   
+
+.. image:: https://coveralls.io/repos/github/rm-hull/bme280/badge.svg?branch=master
+   :target: https://coveralls.io/github/rm-hull/bme280?branch=master
+
+.. image:: https://img.shields.io/pypi/pyversions/rpi-bme280.svg
+   :target: https://pypi.python.org/pypi/rpi-bme280
+
 .. image:: https://img.shields.io/pypi/v/rpi-bme280.svg
    :target: https://pypi.python.org/pypi/rpi-bme280
-   
+
 .. image:: https://img.shields.io/maintenance/yes/2018.svg?maxAge=2592000
+
 
 Interfacing a Bosch BME280 digital sensor module (capable of sensing
 temperature, humidity and pressure) in Python 2 or 3 using I2C on the Raspberry
