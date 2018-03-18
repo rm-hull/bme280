@@ -34,7 +34,6 @@ import time
 import uuid
 
 from bme280.reader import reader
-import bme280.const as compensation_params
 import bme280.const as oversampling
 
 # Oversampling modes
@@ -122,6 +121,12 @@ class compensated_readings(object):
             self.id, self.timestamp, self.temperature, self.pressure, self.humidity)
 
 
+class params(dict):
+    __getattr__ = dict.__getitem__
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
 def load_calibration_params(bus, address=DEFAULT_PORT):
     """
     The BME280 output consists of the ADC output values. However, each sensing
@@ -133,6 +138,7 @@ def load_calibration_params(bus, address=DEFAULT_PORT):
     in hPA.
     """
     read = reader(bus, address)
+    compensation_params = params()
 
     # Temperature trimming params
     compensation_params.dig_T1 = read.unsigned_short(0x88)
@@ -163,6 +169,8 @@ def load_calibration_params(bus, address=DEFAULT_PORT):
     compensation_params.dig_H5 = ((e5 >> 4) & 0xF0) | (e6 << 4)
     compensation_params.dig_H6 = read.signed_byte(0xE7)
 
+    return compensation_params
+
 
 def __calc_delay(t_oversampling, h_oversampling, p_oversampling):
     t_delay = 0.000575 + 0.0023 * (1 << t_oversampling)
@@ -171,7 +179,7 @@ def __calc_delay(t_oversampling, h_oversampling, p_oversampling):
     return t_delay + h_delay + p_delay
 
 
-def sample(bus, address=DEFAULT_PORT, sampling=oversampling.x1):
+def sample(bus, address=DEFAULT_PORT, compensation_params=None, sampling=oversampling.x1):
     """
     Primes the sensor for reading (defaut: x1 oversampling), pauses for a set
     amount of time so that the reading stabilizes, and then returns a
@@ -181,6 +189,9 @@ def sample(bus, address=DEFAULT_PORT, sampling=oversampling.x1):
         * humidity, in % relative humidity.
         * pressure, in hPa.
     """
+    if compensation_params is None:
+        compensation_params = load_calibration_params(bus, address)
+
     mode = 1  # forced
     t_oversampling = sampling or oversampling.x1
     h_oversampling = sampling or oversampling.x1
