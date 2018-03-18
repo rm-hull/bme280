@@ -2,11 +2,18 @@ BME280 Sensor Driver
 ====================
 .. image:: https://travis-ci.org/rm-hull/bme280.svg?branch=master
    :target: https://travis-ci.org/rm-hull/bme280
-   
+
+.. image:: https://coveralls.io/repos/github/rm-hull/bme280/badge.svg?branch=master
+   :target: https://coveralls.io/github/rm-hull/bme280?branch=master
+
+.. image:: https://img.shields.io/pypi/pyversions/rpi-bme280.svg
+   :target: https://pypi.python.org/pypi/rpi-bme280
+
 .. image:: https://img.shields.io/pypi/v/rpi-bme280.svg
    :target: https://pypi.python.org/pypi/rpi-bme280
-   
+
 .. image:: https://img.shields.io/maintenance/yes/2018.svg?maxAge=2592000
+
 
 Interfacing a Bosch BME280 digital sensor module (capable of sensing
 temperature, humidity and pressure) in Python 2 or 3 using I2C on the Raspberry
@@ -129,11 +136,11 @@ Then in a python script or REPL:
   address = 0x76
   bus = smbus2.SMBus(port)
 
-  bme280.load_calibration_params(bus, address)
+  calibration_params = bme280.load_calibration_params(bus, address)
 
   # the sample method will take a single reading and return a
   # compensated_reading object
-  data = bme280.sample(bus, address)
+  data = bme280.sample(bus, address, calibration_params)
 
   # the compensated_reading class has the following attributes
   print(data.id)
@@ -156,7 +163,7 @@ This then should print something like::
       timestamp=2016-11-18 17:33:28.937863, temp=20.563 °C, 
       pressure=980.91 hPa, humidity=48.41 % rH)
 
-For a data-logger like application, periodically call ``bme2.sample(bus, address)`` to
+For a data-logger like application, periodically call ``bme2.sample(bus, address, calibration_params)`` to
 get time-based readings.
 
 See the `weatherstation project <https://github.com/rm-hull/weatherstation>`_ for
