@@ -5,7 +5,7 @@ BME280 ChangeLog
 -----
 * Memoized ``load_calibration_params(...)`` if not supplied to ``sample(...)`` method.
 
-  0.2.0
+0.2.0
 -----
 * Add regression tests
 * Support multiple devices (fixes issue #7)
