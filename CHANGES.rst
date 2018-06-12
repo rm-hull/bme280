@@ -1,6 +1,10 @@
 BME280 ChangeLog
 ================
 
+0.2.2
+-----
+* [Bug fix] Correct H5 compensation param ... again
+
 0.2.1
 -----
 * Memoized ``load_calibration_params(...)`` if not supplied to ``sample(...)`` method.

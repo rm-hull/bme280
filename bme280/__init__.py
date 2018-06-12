@@ -27,7 +27,7 @@
 Raspberry Pi BME280 Driver.
 """
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 import datetime
 import time
