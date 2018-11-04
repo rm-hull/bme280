@@ -91,9 +91,7 @@ class compensated_readings(object):
 
     def __calc_humidity(self, h, t):
         res = self.__tfine(t) - 76800.0
-        res = (h - (self._comp.dig_H4 * 64.0 + self._comp.dig_H5 / 16384.0 * res)) * \
-            (self._comp.dig_H2 / 65536.0 * (1.0 + self._comp.dig_H6 / 67108864.0 * res *
-                                            (1.0 + self._comp.dig_H3 / 67108864.0 * res)))
+        res = (h - (self._comp.dig_H4 * 64.0 + self._comp.dig_H5 / 16384.0 * res)) * (self._comp.dig_H2 / 65536.0 * (1.0 + self._comp.dig_H6 / 67108864.0 * res * (1.0 + self._comp.dig_H3 / 67108864.0 * res)))
         res = res * (1.0 - (self._comp.dig_H1 * res / 524288.0))
         return max(0.0, min(res, 100.0))
 
