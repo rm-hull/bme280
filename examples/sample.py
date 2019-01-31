@@ -9,13 +9,13 @@ port = 1
 address = 0x76
 bus = smbus2.SMBus(port)
 
-bme280.load_calibration_params(bus, address)
+compensation_params = bme280.load_calibration_params(bus, address)
 
 # the sample method will take a single reading and return a
 # compensated_reading object
 data = bme280.sample(bus, address)
 
-print("compensation_params = {0}".format(bme280.compensation_params))
+print("compensation_params = {0}".format(compensation_params))
 
 # the compensated_reading class has the following attributes:
 #
