@@ -8,9 +8,30 @@ try:
 except ImportError:
     from mock import Mock, MagicMock  # noqa: F401
 
+from datetime import datetime
 import bme280
 
 smbus = Mock(unsafe=True)
+
+compensation_params = bme280.params()
+compensation_params.dig_H1 = 0
+compensation_params.dig_H2 = 1
+compensation_params.dig_H3 = 4
+compensation_params.dig_H4 = 3
+compensation_params.dig_H5 = 5
+compensation_params.dig_H6 = 6
+compensation_params.dig_P1 = 10
+compensation_params.dig_P2 = 11
+compensation_params.dig_P3 = 12
+compensation_params.dig_P4 = 13
+compensation_params.dig_P5 = 14
+compensation_params.dig_P6 = 15
+compensation_params.dig_P7 = 16
+compensation_params.dig_P8 = 17
+compensation_params.dig_P9 = 18
+compensation_params.dig_T1 = 20
+compensation_params.dig_T2 = 21
+compensation_params.dig_T3 = 22
 
 
 def setup_function(function):
@@ -44,26 +65,6 @@ def test_load_calibration_params():
 
 
 def test_sample_with_params():
-    compensation_params = bme280.params()
-    compensation_params.dig_H1 = 0
-    compensation_params.dig_H2 = 1
-    compensation_params.dig_H3 = 4
-    compensation_params.dig_H4 = 3
-    compensation_params.dig_H5 = 5
-    compensation_params.dig_H6 = 6
-    compensation_params.dig_P1 = 10
-    compensation_params.dig_P2 = 11
-    compensation_params.dig_P3 = 12
-    compensation_params.dig_P4 = 13
-    compensation_params.dig_P5 = 14
-    compensation_params.dig_P6 = 15
-    compensation_params.dig_P7 = 16
-    compensation_params.dig_P8 = 17
-    compensation_params.dig_P9 = 18
-    compensation_params.dig_T1 = 20
-    compensation_params.dig_T2 = 21
-    compensation_params.dig_T3 = 22
-
     smbus.write_byte_data = MagicMock()
     smbus.read_i2c_block_data = MagicMock(return_value=list(range(8)))
 
@@ -96,29 +97,18 @@ def test_uncompensated_readings_repr():
 
 
 def test_compensated_readings_repr():
-    compensation_params = bme280.params()
-    compensation_params.dig_H1 = 0
-    compensation_params.dig_H2 = 1
-    compensation_params.dig_H3 = 4
-    compensation_params.dig_H4 = 3
-    compensation_params.dig_H5 = 5
-    compensation_params.dig_H6 = 6
-    compensation_params.dig_P1 = 10
-    compensation_params.dig_P2 = 11
-    compensation_params.dig_P3 = 12
-    compensation_params.dig_P4 = 13
-    compensation_params.dig_P5 = 14
-    compensation_params.dig_P6 = 15
-    compensation_params.dig_P7 = 16
-    compensation_params.dig_P8 = 17
-    compensation_params.dig_P9 = 18
-    compensation_params.dig_T1 = 20
-    compensation_params.dig_T2 = 21
-    compensation_params.dig_T3 = 22
-
     block = [1, 1, 2, 3, 5, 8, 13, 21]
     raw = bme280.uncompensated_readings(block)
     reading = bme280.compensated_readings(raw, compensation_params)
     reading.id = "55fea298-5a5d-4873-a46d-b631c8748100"
-    reading.timestamp = "2018-03-18 19:26:14.206233"
+    reading.timestamp = datetime(2018, 3, 18, 19, 26, 14, 206233)
     assert repr(reading) == "compensated_reading(id=55fea298-5a5d-4873-a46d-b631c8748100, timestamp=2018-03-18 19:26:14.206233, temp=0.003 °C, pressure=8758647.58 hPa, humidity=0.05 % rH)"
+
+
+def test_compensated_readings_repr_zero_millis():
+    block = [1, 1, 2, 3, 5, 8, 13, 21]
+    raw = bme280.uncompensated_readings(block)
+    reading = bme280.compensated_readings(raw, compensation_params)
+    reading.id = "55fea298-5a5d-4873-a46d-b631c8748100"
+    reading.timestamp = datetime(2018, 3, 18, 19, 26, 14)
+    assert repr(reading) == "compensated_reading(id=55fea298-5a5d-4873-a46d-b631c8748100, timestamp=2018-03-18 19:26:14.000000, temp=0.003 °C, pressure=8758647.58 hPa, humidity=0.05 % rH)"

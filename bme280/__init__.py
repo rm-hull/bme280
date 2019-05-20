@@ -115,7 +115,7 @@ class compensated_readings(object):
         return res
 
     def __repr__(self):
-        return "compensated_reading(id={0}, timestamp={1}, temp={2:0.3f} °C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
+        return "compensated_reading(id={0}, timestamp={1:%Y-%m-%d %H:%M:%S.%f%Z}, temp={2:0.3f} °C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
             self.id, self.timestamp, self.temperature, self.pressure, self.humidity)
 
 
