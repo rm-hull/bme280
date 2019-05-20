@@ -1,6 +1,10 @@
 BME280 ChangeLog
 ================
 
+0.2.3
+-----
+* [Bug fix] Format compensated reading timestamp to always include the milliseconds
+
 0.2.2
 -----
 * [Bug fix] Correct H5 compensation param ... again
