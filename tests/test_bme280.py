@@ -8,7 +8,7 @@ try:
 except ImportError:
     from mock import Mock, MagicMock  # noqa: F401
 
-from datetime import datetime
+from datetime import datetime, timezone
 import bme280
 
 smbus = Mock(unsafe=True)
@@ -101,8 +101,8 @@ def test_compensated_readings_repr():
     raw = bme280.uncompensated_readings(block)
     reading = bme280.compensated_readings(raw, compensation_params)
     reading.id = "55fea298-5a5d-4873-a46d-b631c8748100"
-    reading.timestamp = datetime(2018, 3, 18, 19, 26, 14, 206233)
-    assert repr(reading) == "compensated_reading(id=55fea298-5a5d-4873-a46d-b631c8748100, timestamp=2018-03-18 19:26:14.206233, temp=0.003 °C, pressure=8758647.58 hPa, humidity=0.05 % rH)"
+    reading.timestamp = datetime(2018, 3, 18, 19, 26, 14, 206233, tzinfo=timezone.utc)
+    assert repr(reading) == "compensated_reading(id=55fea298-5a5d-4873-a46d-b631c8748100, timestamp=2018-03-18 19:26:14.206233UTC, temp=0.003 °C, pressure=8758647.58 hPa, humidity=0.05 % rH)"
 
 
 def test_compensated_readings_repr_zero_millis():
@@ -110,5 +110,5 @@ def test_compensated_readings_repr_zero_millis():
     raw = bme280.uncompensated_readings(block)
     reading = bme280.compensated_readings(raw, compensation_params)
     reading.id = "55fea298-5a5d-4873-a46d-b631c8748100"
-    reading.timestamp = datetime(2018, 3, 18, 19, 26, 14)
-    assert repr(reading) == "compensated_reading(id=55fea298-5a5d-4873-a46d-b631c8748100, timestamp=2018-03-18 19:26:14.000000, temp=0.003 °C, pressure=8758647.58 hPa, humidity=0.05 % rH)"
+    reading.timestamp = datetime(2018, 3, 18, 19, 26, 14, tzinfo=timezone.utc)
+    assert repr(reading) == "compensated_reading(id=55fea298-5a5d-4873-a46d-b631c8748100, timestamp=2018-03-18 19:26:14.000000UTC, temp=0.003 °C, pressure=8758647.58 hPa, humidity=0.05 % rH)"
