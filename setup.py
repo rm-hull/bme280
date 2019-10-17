@@ -28,7 +28,7 @@ setup(
     url="https://github.com/rm-hull/bme280",
     download_url="https://github.com/rm-hull/bme280/tarball/" + bme280.__version__,
     packages=['bme280'],
-    install_requires=["smbus2"],
+    install_requires=["pytz", "smbus2"],
     setup_requires=pytest_runner,
     tests_require=test_deps,
     extras_require={
