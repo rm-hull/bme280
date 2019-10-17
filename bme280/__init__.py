@@ -35,6 +35,7 @@ import uuid
 
 from bme280.reader import reader
 import bme280.const as oversampling
+import pytz
 
 # Oversampling modes
 oversampling.x1 = 1
@@ -77,7 +78,7 @@ class compensated_readings(object):
         self._comp = compensation_params
         self.id = uuid.uuid4()
         self.uncompensated = raw_readings
-        self.timestamp = datetime.datetime.now()
+        self.timestamp = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
         self.temperature = self.__tfine(raw_readings.temperature) / 5120.0
         self.humidity = self.__calc_humidity(raw_readings.humidity,
                                              raw_readings.temperature)
