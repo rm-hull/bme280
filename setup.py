@@ -20,7 +20,6 @@ def _read_version():
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
 test_deps = [
-    'mock;python_version<"3.3"',
     'pytest>=3.1',
     'pytest-cov'
 ]
@@ -42,6 +41,7 @@ setup(
     install_requires=["pytz", "smbus2"],
     setup_requires=pytest_runner,
     tests_require=test_deps,
+    python_requires=">=3.6, <4",
     extras_require={
         'qa': [
             'rstcheck',
@@ -56,11 +56,11 @@ setup(
         "Intended Audience :: Developers",
         "Topic :: Education",
         "Topic :: System :: Hardware",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10"
     ]
 )
