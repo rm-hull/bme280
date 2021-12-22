@@ -12,11 +12,11 @@ BME280 Sensor Driver
 .. image:: https://img.shields.io/pypi/v/rpi-bme280.svg
    :target: https://pypi.python.org/pypi/rpi-bme280
 
-.. image:: https://img.shields.io/maintenance/yes/2020.svg?maxAge=2592000
+.. image:: https://img.shields.io/maintenance/yes/2021.svg?maxAge=2592000
 
 
 Interfacing a Bosch BME280 digital sensor module (capable of sensing
-temperature, humidity and pressure) in Python 2 or 3 using I2C on the Raspberry
+temperature, humidity and pressure) in Python 3 using I2C on the Raspberry
 Pi. The particular kit I bought can be acquired for a few pounds from `eBay
 <http://www.ebay.co.uk/itm/311728184519>`_. Further technical details for the
 BME280 sensor can be found in the `datasheet
@@ -103,22 +103,15 @@ use 0 for the bus not 1)::
 
 Installing the Python Package
 -----------------------------
-For python2, from the bash prompt, enter::
+From the bash prompt, enter::
 
-  $ sudo python setup.py install
+  $ sudo python3 setup.py install
 
-This will install the Python files in ``/usr/local/lib/python2.7``
-making them ready for use in other programs.
-
-Alternatively for python3, type::
-
- $ sudo python3 setup.py install
-
-Cheeseshop install
-^^^^^^^^^^^^^^^^^^
+PyPi install
+^^^^^^^^^^^^
 Alternatively, a version on PyPi is available, just do::
 
-  $ sudo pip install RPi.bme280
+  $ sudo pip3 install RPi.bme280
 
 Software Driver - Example Usage
 -------------------------------
@@ -177,7 +170,7 @@ License
 -------
 The MIT License (MIT)
 
-Copyright (c) 2016-2020 Richard Hull
+Copyright (c) 2016-2021 Richard Hull
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

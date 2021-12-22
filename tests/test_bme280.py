@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018 Richard Hull
+# Copyright (c) 2018-2021 Richard Hull
 # See LICENSE.rst for details.
 
-
-try:
-    from unittest.mock import Mock, MagicMock
-except ImportError:
-    from mock import Mock, MagicMock  # noqa: F401
-
+from unittest.mock import Mock, MagicMock
 from datetime import datetime
 import bme280
 import pytz
