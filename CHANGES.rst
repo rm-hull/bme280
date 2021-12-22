@@ -1,6 +1,10 @@
 BME280 ChangeLog
 ================
 
+0.2.4
+-----
+* [Bug fix] compensated_readings: make 'timestamp' tz-aware.
+
 0.2.3
 -----
 * [Bug fix] Format compensated reading timestamp to always include the milliseconds
