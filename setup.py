@@ -43,6 +43,9 @@ setup(
     tests_require=test_deps,
     python_requires=">=3.6, <4",
     extras_require={
+        'docs': [
+            'sphinx>=1.5.1'
+        ],
         'qa': [
             'rstcheck',
             'flake8'
@@ -51,7 +54,7 @@ setup(
     },
     classifiers=[
         "License :: OSI Approved :: MIT License",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Education",
         "Intended Audience :: Developers",
         "Topic :: Education",

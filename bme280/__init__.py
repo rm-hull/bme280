@@ -65,14 +65,14 @@ class compensated_readings(object):
     """
     Compensation formulas translated from Appendix A (8.1) of BME280 datasheet:
 
-       * Temperature in °C, double precision. Output value of "51.23"
-         equals 51.23 °C
+      * Temperature in °C, double precision. Output value of "51.23"
+        equals 51.23 °C
 
-       * Pressure in hPa as double. Output value of "963.862" equals
-         963.862 hPa
+      * Pressure in hPa as double. Output value of "963.862" equals
+        963.862 hPa
 
-       * Humidity in %rH as as double. Output value of "46.332" represents
-         46.332 %rH
+      * Humidity in %rH as as double. Output value of "46.332" represents
+        46.332 %rH
     """
     def __init__(self, raw_readings, compensation_params):
         self._comp = compensation_params
@@ -197,10 +197,11 @@ def sample(bus, address=DEFAULT_PORT, compensation_params=None, sampling=oversam
     Primes the sensor for reading (defaut: x1 oversampling), pauses for a set
     amount of time so that the reading stabilizes, and then returns a
     compensated reading object with the following attributes:
-        * timestamp (Python's datetime object) when reading was taken.
-        * temperature, in degrees Celcius.
-        * humidity, in % relative humidity.
-        * pressure, in hPa.
+
+      * timestamp (Python's ``datetime`` object) when reading was taken
+      * temperature (in degrees Celcius)
+      * humidity (in % relative humidity)
+      * pressure (in hPa)
     """
     if compensation_params is None:
         compensation_params = __cache_calibration_params(bus, address)

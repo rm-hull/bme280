@@ -1,7 +1,7 @@
 BME280 Sensor Driver
 ====================
-.. image:: https://travis-ci.org/rm-hull/bme280.svg?branch=master
-   :target: https://travis-ci.org/rm-hull/bme280
+.. image:: https://github.com/rm-hull/bme280/workflows/RPi.bme280/badge.svg?branch=master
+   :target: https://github.com/rm-hull/bme280/actions?workflow=RPi.bme280
 
 .. image:: https://coveralls.io/repos/github/rm-hull/bme280/badge.svg?branch=master
    :target: https://coveralls.io/github/rm-hull/bme280?branch=master
