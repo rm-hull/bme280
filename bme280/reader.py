@@ -26,26 +26,29 @@
 
 # bus is an instance of SMBus
 # default is little endian
+from __future__ import annotations
 
-class reader(object):
+
+class Reader:
     """
     Wraps a I2C SMBus instance to provide methods for reading
     signed/unsigned bytes and 16-bit words
     """
-    def __init__(self, bus, address):
+
+    def __init__(self, bus, address: int) -> None:
         self._bus = bus
         self._address = address
 
-    def unsigned_short(self, register):
-        return self._bus.read_word_data(self._address, register) & 0xffff
+    def unsigned_short(self, register: int) -> int:
+        return self._bus.read_word_data(self._address, register) & 0xFFFF
 
-    def signed_short(self, register):
+    def signed_short(self, register: int) -> int:
         word = self.unsigned_short(register)
         return word if word < 0x8000 else word - 0x10000
 
-    def unsigned_byte(self, register):
-        return self._bus.read_byte_data(self._address, register) & 0xff
+    def unsigned_byte(self, register: int) -> int:
+        return self._bus.read_byte_data(self._address, register) & 0xFF
 
-    def signed_byte(self, register):
-        byte = self.unsigned_byte(register) & 0xff
+    def signed_byte(self, register: int) -> int:
+        byte = self.unsigned_byte(register) & 0xFF
         return byte if byte < 0x80 else byte - 0x100
