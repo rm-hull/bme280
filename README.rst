@@ -156,7 +156,7 @@ This then should print something like::
       timestamp=2016-11-18 17:33:28.937863, temp=20.563 °C, 
       pressure=980.91 hPa, humidity=48.41 % rH)
 
-For a data-logger like application, periodically call ``bme2.sample(bus, address, calibration_params)`` to
+For a data-logger like application, periodically call ``bme280.sample(bus, address, calibration_params)`` to
 get time-based readings.
 
 See the `weatherstation project <https://github.com/rm-hull/weatherstation>`_ for
