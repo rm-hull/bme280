@@ -91,5 +91,8 @@ ENV/
 .ropeproject
 *~
 
+# VS Code
+.vscode/
+
 # OSX
 .DS_Store
