@@ -54,10 +54,11 @@ class uncompensated_readings(object):
         self.pressure = (block[0] << 16 | block[1] << 8 | block[2]) >> 4
         self.temperature = (block[3] << 16 | block[4] << 8 | block[5]) >> 4
         self.humidity = block[6] << 8 | block[7]
+        self.sensorid = (((block[11] + (block[10] << 8)) & 0x7fff) << 16) + ((block[9]) << 8) + block[8]
 
     def __repr__(self):
-        return "uncompensated_reading(temp=0x{0:08X}, pressure=0x{1:08X}, humidity=0x{2:08X}, block={3})".format(
-            self.temperature, self.pressure, self.humidity,
+        return "uncompensated_reading(temp=0x{0:08X}, pressure=0x{1:08X}, humidity=0x{2:08X}, sensorid=0x{3:08X}, block={4})".format(
+            self.temperature, self.pressure, self.humidity, self.sensorid,
             ":".join("{0:02X}".format(c) for c in self._block))
 
 
@@ -84,6 +85,7 @@ class compensated_readings(object):
                                              raw_readings.temperature)
         self.pressure = self.__calc_pressure(raw_readings.pressure,
                                              raw_readings.temperature) / 100.0
+        self.sensorid = raw_readings.sensorid                                             
 
     def __tfine(self, t):
         v1 = (t / 16384.0 - self._comp.dig_T1 / 1024.0) * self._comp.dig_T2
@@ -116,8 +118,8 @@ class compensated_readings(object):
         return res
 
     def __repr__(self):
-        return "compensated_reading(id={0}, timestamp={1:%Y-%m-%d %H:%M:%S.%f%Z}, temp={2:0.3f} °C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
-            self.id, self.timestamp, self.temperature, self.pressure, self.humidity)
+        return "compensated_reading(sensorid=0x{5:08X}, id={0}, timestamp={1:%Y-%m-%d %H:%M:%S.%f%Z}, temp={2:0.3f} °C, pressure={3:0.2f} hPa, humidity={4:0.2f} % rH)".format(
+            self.id, self.timestamp, self.temperature, self.pressure, self.humidity, self.sensorid)
 
 
 class params(dict):
@@ -217,5 +219,6 @@ def sample(bus, address=DEFAULT_PORT, compensation_params=None, sampling=oversam
     time.sleep(delay)
 
     block = bus.read_i2c_block_data(address, 0xF7, 8)
+    block.extend(bus.read_i2c_block_data(address, 0x83, 4))
     raw_data = uncompensated_readings(block)
     return compensated_readings(raw_data, compensation_params)
